@@ -15,6 +15,7 @@ type Node struct {
 
 type Encoder struct {
 	w io.Writer
+	s [64]byte
 }
 
 func NewEncoder(w io.Writer) *Encoder {
@@ -88,5 +89,11 @@ func (e *Encoder) indent(n int) {
 }
 
 func (e *Encoder) writeString(s string) {
+	if len(s) < len(e.s) {
+		copy(e.s[:], s)
+		e.w.Write(e.s[:len(s)])
+		return
+	}
+
 	e.w.Write([]byte(s))
 }
