@@ -21,6 +21,7 @@ func TestNothing(t *testing.T) {
 		URL:    "http://issuerdirect.com/",
 		Ticker: "isdr",
 	}
+	cns := company.Namespace(time.Now())
 
 	c1 := &Context{
 		Start: MustParse("2006 01 02", "2009 12 31"),
@@ -30,10 +31,10 @@ func TestNothing(t *testing.T) {
 		Measure: "iso4271:USD",
 	}
 
-	f1 := &Fact{Name: xml.Name{"isdr", "AssetsCurrent"}}
-	f2 := &Fact{Name: xml.Name{"isdr", "OtherAssetsCurrent"}}
+	f1 := &Fact{Name: xml.Name{cns, "AssetsCurrent"}}
+	f2 := &Fact{Name: xml.Name{cns, "OtherAssetsCurrent"}}
 	f3 := &Fact{
-		Name:        xml.Name{"isdr", "Assets"},
+		Name:        xml.Name{cns, "Assets"},
 		Calculation: []*Calc{{1, f1}, {1, f2}},
 	}
 
@@ -60,4 +61,6 @@ func TestNothing(t *testing.T) {
 	}
 
 	fmt.Printf("%#v\n", f)
+
+	fmt.Printf("%+v\n", Serialize(f, Instance))
 }

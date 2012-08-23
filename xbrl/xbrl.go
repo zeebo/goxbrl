@@ -11,6 +11,10 @@ type Company struct {
 	Ticker string
 }
 
+func (c *Company) Namespace(t time.Time) string {
+	return c.URL + t.Format("20060102")
+}
+
 type ContextPeriod int
 
 const (
