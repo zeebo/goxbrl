@@ -5,7 +5,7 @@ import (
 	"github.com/zeebo/goxbrl/marshal"
 )
 
-func serializeInstance(f Filing) *marshal.Node {
+func (s *serializer) instance() *marshal.Node {
 	return &marshal.Node{
 		Name:  xml.Name{"", ""},
 		Attrs: []xml.Attr{},

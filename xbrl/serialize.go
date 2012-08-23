@@ -8,10 +8,15 @@ const (
 	Instance DocType = iota
 )
 
+type serializer struct {
+	f Filing
+}
+
 func Serialize(f Filing, doc DocType) *marshal.Node {
+	s := &serializer{f}
 	switch doc {
 	case Instance:
-		return serializeInstance(f)
+		return s.instance()
 	}
 	panic("Unknown document type")
 }
